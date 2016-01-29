@@ -1,0 +1,36 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"All Autocomplete",
+		"Better CoffeeScript",
+		"BracketHighlighter",
+		"Coffee2Js",
+		"CoffeeCompile",
+		"DocBlockr",
+		"Emmet",
+		"Evernote",
+		"GitGutter",
+		"GitSavvy",
+		"JavaScript & Coffeescript Build Systems",
+		"JavaScriptNext - ES6 Syntax",
+		"knockdown",
+		"Package Control",
+		"RuboCop",
+		"Sass",
+		"SFTP",
+		"SideBarEnhancements",
+		"SublimeLinter",
+		"SublimeLinter-coffee",
+		"SublimeLinter-coffeelint",
+		"SublimeLinter-contrib-scss-lint",
+		"SublimeLinter-csslint",
+		"SublimeLinter-jshint",
+		"SublimeLinter-rubocop",
+		"Sublimerge Pro",
+		"Terminal"
+	]
+}

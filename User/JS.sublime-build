@@ -1,0 +1,7 @@
+{
+  "cmd": ["/Users/Jeremy/.nvm/v0.10.36/bin/node", "$file"],
+  "selector": "source.js",
+  "windows" : {
+     "shell": true
+  }
+}

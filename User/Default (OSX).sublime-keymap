@@ -1,0 +1,19 @@
+[{
+  "keys": ["command+f12"],
+  "command": "goto_definition"
+}, {
+  "keys": ["ctrl+shift+c"],
+  "command": "rubocop_check_single_file"
+}, {
+  "keys": ["super+shift+alt+c"],
+  "command": "rubocop_check_project"
+}, {
+  "keys": ["ctrl+super+v"],
+  "command": "rubocop_check_file_folder"
+},{
+  "keys": ["alt+shift+g"],
+  "command": "compile_and_display",
+  "args": {"opt": "-p"}
+},{
+  "keys": ["super+shift+o"], "command": "open_terminal" }
+]
