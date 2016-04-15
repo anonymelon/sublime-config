@@ -15,6 +15,7 @@
 		"*.ttf",
 		"*.zip",
 		".idea/**",
+		"/Users/Jeremy/workspace/dm/CsePublishTest/.idea/**",
 		"/Users/Jeremy/workspace/dm/DM/.idea/**"
 	],
 	"color_scheme": "Packages/User/SublimeLinter/Monokai (SL).tmTheme",
