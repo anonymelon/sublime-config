@@ -15,5 +15,8 @@
   "command": "compile_and_display",
   "args": {"opt": "-p"}
 },{
-  "keys": ["super+shift+o"], "command": "open_terminal" }
+  "keys": ["super+shift+o"], "command": "open_terminal"
+},{
+  "keys": ["super+shift+t"], "command": "reopen_last_file"
+}
 ]
