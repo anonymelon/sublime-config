@@ -6,6 +6,8 @@
 	"installed_packages":
 	[
 		"All Autocomplete",
+		"Anaconda",
+		"Babel",
 		"Better CoffeeScript",
 		"BracketHighlighter",
 		"Coffee2Js",
@@ -17,8 +19,12 @@
 		"GitSavvy",
 		"JavaScript & Coffeescript Build Systems",
 		"JavaScriptNext - ES6 Syntax",
+		"JSX",
 		"knockdown",
 		"Package Control",
+		"React and React Router Snippets",
+		"react-native-snippets",
+		"ReactJS",
 		"RuboCop",
 		"Sass",
 		"SFTP",
@@ -29,8 +35,10 @@
 		"SublimeLinter-contrib-scss-lint",
 		"SublimeLinter-csslint",
 		"SublimeLinter-jshint",
+		"SublimeLinter-jsxhint",
 		"SublimeLinter-rubocop",
 		"Sublimerge Pro",
-		"Terminal"
+		"Terminal",
+		"Web Inspector"
 	]
 }

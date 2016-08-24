@@ -1,0 +1,123 @@
+{
+	"breakpoint_scope": "swi.breakpoint",
+	"breaks":
+	{
+		"/users/jeremy/workspace/dm/dm/app/assets/javascripts/app.coffee":
+		{
+			"19":
+			{
+				"status": "disabled"
+			}
+		},
+		"/users/jeremy/workspace/github/willow-jeremy/public/admin.html":
+		{
+			"0":
+			{
+				"status": "disabled"
+			},
+			"185":
+			{
+				"status": "disabled"
+			}
+		},
+		"/users/jeremy/workspace/github/willow-jeremy/public/index.html":
+		{
+			"14":
+			{
+				"status": "disabled"
+			}
+		},
+		"/users/jeremy/workspace/test/web-inspect/test.html":
+		{
+		}
+	},
+	"chrome_path":
+	{
+		"osx": "/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary"
+	},
+	"chrome_remote_port": "9222",
+	"console_layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				2,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
+				2
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.6,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			0.7,
+			1.0
+		]
+	},
+	"current_line_scope": "swi.current",
+	"debug_mode": false,
+	"enable_pause_overlay": true,
+	"enable_source_maps": true,
+	"interactive_scope": "mcol_0088CCFF.settings",
+	"open_stack_current_in_new_tab": true,
+	"pause_on_exceptions": "uncaught",
+	"reload_on_save": true,
+	"reload_on_start": false,
+	"reload_timeout": 0,
+	"set_script_source": false,
+	"stack_layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				2,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
+				2
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.6,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			0.7,
+			1.0
+		]
+	},
+	"user_agent": ""
+}
