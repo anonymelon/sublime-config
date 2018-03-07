@@ -13,7 +13,10 @@
 		"Coffee2Js",
 		"CoffeeCompile",
 		"DocBlockr",
+		"Dockerfile Syntax Highlighting",
 		"Emmet",
+		"ERB Autocomplete",
+		"ES6-Toolkit",
 		"Evernote",
 		"GitGutter",
 		"GitSavvy",
@@ -21,7 +24,9 @@
 		"JavaScriptNext - ES6 Syntax",
 		"JSX",
 		"knockdown",
+		"Nodejs",
 		"Package Control",
+		"Pretty JSON",
 		"React and React Router Snippets",
 		"react-native-snippets",
 		"ReactJS",
@@ -37,8 +42,9 @@
 		"SublimeLinter-jshint",
 		"SublimeLinter-jsxhint",
 		"SublimeLinter-rubocop",
-		"Sublimerge Pro",
+		"Sublimerge 3",
 		"Terminal",
+		"TypeScript",
 		"Web Inspector"
 	]
 }

@@ -8,6 +8,7 @@ import sys
 import time
 import socket
 import logging
+import platform
 import asyncore
 import asynchat
 import threading
@@ -25,13 +26,16 @@ except ImportError:
 sys.path.insert(0, os.path.join(
     os.path.split(os.path.split(__file__)[0])[0], 'anaconda_lib'))
 
-from jedi import settings as jedi_settings
+from lib.path import log_directory
+from jedi import set_debug_function
 from lib.contexts import json_decode
+from unix_socket import UnixSocketPath
 from handlers import ANACONDA_HANDLERS
+from jedi import settings as jedi_settings
 from lib.anaconda_handler import AnacondaHandler
 
 
-DEBUG_MODE = True
+DEBUG_MODE = False
 logger = logging.getLogger('')
 PY3 = True if sys.version_info >= (3,) else False
 
@@ -79,6 +83,7 @@ class JSONHandler(asynchat.async_chat):
                 return
 
             if data['method'] == 'check':
+                logging.info('Check received')
                 self.return_back(message='Ok', uid=data['uid'])
                 return
 
@@ -97,7 +102,15 @@ class JSONHandler(asynchat.async_chat):
                 print('Received method: {0}, handler: {1}'.format(
                     method, handler_type)
                 )
-            self.handle_command(handler_type, method, uid, vid, data)
+            try:
+                self.handle_command(handler_type, method, uid, vid, data)
+            except Exception as error:
+                logging.error(error)
+                log_traceback()
+                self.return_back({
+                    'success': False, 'uid': uid,
+                    'vid': vid, 'error': str(error)
+                })
         else:
             logging.error(
                 'client sent somethinf that I don\'t understand: {0}'.format(
@@ -126,7 +139,10 @@ class JSONServer(asyncore.dispatcher):
 
     allow_reuse_address = False
     request_queue_size = 5
-    address_familty = socket.AF_INET
+    if platform.system().lower() != 'linux':
+        address_family = socket.AF_INET
+    else:
+        address_family = socket.AF_UNIX
     socket_type = socket.SOCK_STREAM
 
     def __init__(self, address, handler=JSONHandler):
@@ -134,7 +150,7 @@ class JSONServer(asyncore.dispatcher):
         self.handler = handler
 
         asyncore.dispatcher.__init__(self)
-        self.create_socket(self.address_familty, self.socket_type)
+        self.create_socket(self.address_family, self.socket_type)
         self.last_call = time.time()
 
         self.bind(self.address)
@@ -156,7 +172,9 @@ class JSONServer(asyncore.dispatcher):
         """Called when we accept and incomming connection
         """
         sock, addr = self.accept()
-        self.logger.info('Incomming connection from {0}'.format(repr(addr)))
+        self.logger.info('Incomming connection from {0}'.format(
+            repr(addr) or 'unix socket')
+        )
         self.handler(sock, self)
 
     def handle_close(self):
@@ -244,6 +262,9 @@ def get_logger(path):
     """Build file logger
     """
 
+    if not os.path.exists(path):
+        os.makedirs(path)
+
     log = logging.getLogger('')
     log.setLevel(logging.DEBUG)
     hdlr = handlers.RotatingFileHandler(
@@ -262,23 +283,18 @@ def log_traceback():
     """Just log the traceback
     """
 
-    logging.error(get_log_traceback())
+    logging.error(traceback.format_exc())
 
-
-def get_log_traceback():
-    """Get the traceback log msg
-    """
-
-    error = []
-    for traceback_line in traceback.format_exc().splitlines():
-        error.append(traceback_line)
-
-    return '\n'.join(error)
 
 if __name__ == "__main__":
+
+    WINDOWS = os.name == 'nt'
+    LINUX = platform.system().lower() == 'linux'
     opt_parser = OptionParser(usage=(
         'usage: %prog -p <project> -e <extra_paths> port'
-    ))
+    )) if WINDOWS else OptionParser(usage=(
+        "usage: %prog -p <project> -e <extra_paths> ST3_PID")
+    )
 
     opt_parser.add_option(
         '-p', '--project', action='store', dest='project', help='project name'
@@ -290,15 +306,24 @@ if __name__ == "__main__":
     )
 
     options, args = opt_parser.parse_args()
-    if len(args) != 2:
-        opt_parser.error('you have to pass a port number and PID')
+    port, PID = None, None
+    if not LINUX:
+        if len(args) != 2:
+            opt_parser.error('you have to pass a port number and PID')
 
-    port = int(args[0])
-    PID = args[1]
+        port = int(args[0])
+        PID = args[1]
+    else:
+        if len(args) != 1:
+            opt_parser.error('you have to pass a Sublime Text 3 PID')
+
+        PID = args[0]
+
     if options.project is not None:
         jedi_settings.cache_directory = os.path.join(
             jedi_settings.cache_directory, options.project
         )
+        log_directory = os.path.join(log_directory, options.project)
 
     if not os.path.exists(jedi_settings.cache_directory):
         os.makedirs(jedi_settings.cache_directory)
@@ -308,14 +333,24 @@ if __name__ == "__main__":
             if path not in sys.path:
                 sys.path.insert(0, path)
 
-    logger = get_logger(jedi_settings.cache_directory)
+    logger = get_logger(log_directory)
 
     try:
-        server = JSONServer(('localhost', port))
+        if not LINUX:
+            server = JSONServer(('localhost', port))
+        else:
+            unix_socket_path = UnixSocketPath(options.project)
+            if not os.path.exists(os.path.dirname(unix_socket_path.socket)):
+                os.makedirs(os.path.dirname(unix_socket_path.socket))
+            if os.path.exists(unix_socket_path.socket):
+                os.unlink(unix_socket_path.socket)
+            server = JSONServer(unix_socket_path.socket)
+
         logger.info(
-            'Anaconda Server started in port {0} for '
+            'Anaconda Server started in {0} for '
             'PID {1} with cache dir {2}{3}'.format(
-                port, PID, jedi_settings.cache_directory,
+                port or unix_socket_path.socket, PID,
+                jedi_settings.cache_directory,
                 ' and extra paths {0}'.format(
                     options.extra_paths
                 ) if options.extra_paths is not None else ''
@@ -323,7 +358,8 @@ if __name__ == "__main__":
         )
     except Exception as error:
         log_traceback()
-        logger.error(error)
+        logger.error(str(error))
+        server.shutdown()
         sys.exit(-1)
 
     server.logger = logger
@@ -336,6 +372,7 @@ if __name__ == "__main__":
         logger.info('Anaconda Server started in DEBUG mode...')
         print('DEBUG MODE')
         DEBUG_MODE = True
+        set_debug_function(notices=True)
 
     # start the server
     server.serve_forever()

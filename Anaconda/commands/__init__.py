@@ -10,11 +10,13 @@ from .autoformat import AnacondaAutoFormat
 from .find_usages import AnacondaFindUsages
 from .enable_linting import AnacondaEnableLinting
 from .next_lint_error import AnacondaNextLintError
+from .prev_lint_error import AnacondaPrevLintError
 from .disable_linting import AnacondaDisableLinting
-from .complete_func_args import AnacondaCompleteFuncargs
+from .complete_func_args import AnacondaCompleteFuncargs, AnacondaFillFuncargs
+from .complete_func_args import AnacondaFuncargsKeyListener
 from .set_python_interpreter import AnacondaSetPythonInterpreter
 from .goto import (
-    AnacondaGoto, AnacondaGotoPythonObject
+    AnacondaGoto, AnacondaGotoAssignment, AnacondaGotoPythonObject
 )
 from .test_runner import (
     AnacondaRunCurrentFileTests, AnacondaRunProjectTests,
@@ -28,6 +30,7 @@ from .vagrant import (
 __all__ = [
     'AnacondaDoc',
     'AnacondaGoto',
+    'AnacondaGotoAssignment',
     'AnacondaGotoPythonObject',
     'AnacondaRename',
     'AnacondaMcCabe',
@@ -41,6 +44,7 @@ __all__ = [
     'AnacondaRunLastTest',
     'AnacondaEnableLinting',
     'AnacondaNextLintError',
+    'AnacondaPrevLintError',
     'AnacondaVagrantEnable',
     'AnacondaVagrantStatus',
     'AnacondaVagrantReload',
@@ -48,6 +52,8 @@ __all__ = [
     'AnacondaDisableLinting',
     'AnacondaRunProjectTests',
     'AnacondaCompleteFuncargs',
+    'AnacondaFillFuncargs',
+    'AnacondaFuncargsKeyListener',
     'AnacondaSetPythonInterpreter',
     'AnacondaRunCurrentFileTests',
 ]

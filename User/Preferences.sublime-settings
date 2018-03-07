@@ -14,9 +14,18 @@
 		"*.tga",
 		"*.ttf",
 		"*.zip",
+		".adsk/**",
+		".github/**",
 		".idea/**",
 		"/Users/Jeremy/workspace/dm/CsePublishTest/.idea/**",
-		"/Users/Jeremy/workspace/dm/DM/.idea/**"
+		"/Users/Jeremy/workspace/dm/DM/.adsk/**",
+		"/Users/Jeremy/workspace/dm/DM/.github/**",
+		"/Users/Jeremy/workspace/dm/DM/.idea/**",
+		"/Users/admin/BIM360DM/.idea/**",
+		"/Users/admin/BIM360DM/node_modules/**",
+		"/Users/admin/BIM360DM/tmp/**",
+		"node_modules/**",
+		"tmp/**"
 	],
 	"color_scheme": "Packages/User/SublimeLinter/Monokai (SL).tmTheme",
 	"command": "goto_definition",
@@ -30,13 +39,11 @@
 		".git",
 		".svn",
 		".sass-cache",
-		"node_modules",
 		"/Users/Jeremy/workspace/dm/DM/coverage",
-		"/Users/Jeremy/workspace/dm/DM/tmp"
+		"/Users/Jeremy/workspace/dm/DM/tmp",
+		"/Users/Jeremy/workspace/dm/DM/.github"
 	],
-	"font_size": 15,
-	"http_proxy": "http://localhost:8118",
-	"https_proxy": "http://localhost:8118",
+	"font_size": 18,
 	"ignored_packages":
 	[
 		"Anaconda",
@@ -63,7 +70,6 @@
 	],
 	"rulers":
 	[
-		80,
 		100,
 		120
 	],
@@ -71,6 +77,6 @@
 	"tab_size": 2,
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": true,
-	"word_separators": "./\\()\"'-:,.;<>~!#%^&*|+=[]{}`~?",
-	"word_wrap": "false"
+	"word_separators": "./\\()\"':,.;<>~!#%^&*|+=[]{}`~?",
+	"word_wrap": "auto"
 }
